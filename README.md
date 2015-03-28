@@ -24,7 +24,7 @@ Atomic sessions for Koa.
 var app = koa()
 
 // attach the session to the app
-var MongoDBSession = require('koa-atomic-session').mongodb(app, {
+var MongoDBSession = require('koa-atomic-session')(app, {
   maxAge: '1 month'
 })
 
