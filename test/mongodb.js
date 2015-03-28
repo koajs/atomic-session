@@ -1,11 +1,12 @@
+'use strict'
 
-var request = require('supertest')
-var assert = require('assert')
-var koa = require('koa')
+const request = require('supertest')
+const assert = require('assert')
+const koa = require('koa')
 
-var session = require('..')
+const session = require('..')
 
-var collection
+let collection
 
 before(function (done) {
   require('mongodb').MongoClient.connect('mongodb://localhost/koa-atomic-session', function (err, db) {
@@ -18,7 +19,7 @@ before(function (done) {
 describe('Mongodb Atomic Session', function () {
   describe('when not accessed', function () {
     it('should not set cookies', function (done) {
-      var app = App()
+      let app = App()
 
       request(app.listen())
       .get('/')
@@ -33,10 +34,10 @@ describe('Mongodb Atomic Session', function () {
 
   describe('when accessed', function () {
     it('should set a cookie', function (done) {
-      var app = App()
+      let app = App()
 
       app.use(function* () {
-        var session = yield this.session()
+        let session = yield this.session()
         yield session.set('message', 'hello').then(session.update)
         assert.equal(session.message, 'hello')
         assert(session.maxAge)
@@ -54,10 +55,10 @@ describe('Mongodb Atomic Session', function () {
 
   describe('MongoDB Commands', function () {
     it('should unset stuff', function (done) {
-      var app = App()
+      let app = App()
 
       app.use(function* () {
-        var session = yield this.session()
+        let session = yield this.session()
         yield session.set('message', 'hello').then(session.update)
         assert.equal(session.message, 'hello')
         yield session.unset('message').then(session.update)
@@ -76,12 +77,12 @@ describe('Mongodb Atomic Session', function () {
   })
 
   it('should regenerate sessions', function (done) {
-    var app = App()
+    let app = App()
 
     app.use(function* () {
-      var session = yield this.session()
+      let session = yield this.session()
       yield session.set('message', 'hello')
-      var session2 = yield session.regenerate()
+      let session2 = yield session.regenerate()
       assert(!session._id.equals(session2._id))
       assert(!session.message)
       this.status = 204
@@ -94,11 +95,11 @@ describe('Mongodb Atomic Session', function () {
   })
 
   it('should support CSRF tokens', function (done) {
-    var app = App()
+    let app = App()
 
     app.use(function* () {
-      var session = yield this.session()
-      var csrf = session.createCSRF()
+      let session = yield this.session()
+      let csrf = session.createCSRF()
       session.assertCSRF(csrf)
       this.status = 204
     })
@@ -110,17 +111,17 @@ describe('Mongodb Atomic Session', function () {
   })
 
   it('should grab sessions from the cookie', function (done) {
-    var app = App()
+    let app = App()
 
     app.use(function* (next) {
       if (this.method !== 'POST') return yield next
-      var session = yield this.session()
+      let session = yield this.session()
       yield session.set('message', 'hello')
       this.status = 204
     })
 
     app.use(function* (next) {
-      var session = yield this.session()
+      let session = yield this.session()
       assert.equal(session.message, 'hello')
       assert(session.maxAge)
       assert(session.expires)
@@ -128,7 +129,7 @@ describe('Mongodb Atomic Session', function () {
       this.status = 204
     })
 
-    var server = app.listen()
+    let server = app.listen()
 
     request(server)
     .post('/')
@@ -136,7 +137,7 @@ describe('Mongodb Atomic Session', function () {
     .expect(204, function (err, res) {
       assert.ifError(err)
 
-      var cookie = res.headers['set-cookie'].join(';')
+      let cookie = res.headers['set-cookie'].join(';')
 
       request(server)
       .get('/')
@@ -147,9 +148,9 @@ describe('Mongodb Atomic Session', function () {
 })
 
 function App(options) {
-  var app = koa()
+  let app = koa()
   app.keys = ['a', 'b']
-  var Session = session(app, options)
+  let Session = session(app, options)
   Session.collection = collection
   Session.ensureIndex()
   return app

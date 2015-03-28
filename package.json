@@ -15,12 +15,14 @@
     "istanbul": "0",
     "koa": "0",
     "mocha": "2",
+    "standardberry": "*",
     "supertest": "0"
   },
   "scripts": {
+    "lint": "standardberry lib/*.js",
     "test": "mocha",
     "test-cov": "istanbul cover ./node_modules/.bin/_mocha -- --reporter dot",
-    "test-travis": "istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --reporter dot"
+    "test-travis": "npm run lint && istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --reporter dot"
   },
   "keywords": [
     "session",
