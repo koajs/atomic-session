@@ -7,20 +7,20 @@
   "repository": "koajs/atomic-session",
   "dependencies": {
     "csrf": "^2.0.2",
+    "mongodb": "^2.0.25",
+    "mongodb-next": "^0.7.0",
     "ms": "^0.7.0"
   },
   "devDependencies": {
     "istanbul": "0",
-    "koa": "^0.14.0",
+    "koa": "0",
     "mocha": "2",
-    "mongodb": "^1.4.26",
-    "mongodb-next": "^0.6.0",
-    "supertest": "^0.15.0"
+    "supertest": "0"
   },
   "scripts": {
-    "test": "mocha --harmony-generators --reporter spec",
-    "test-cov": "node --harmony-generators node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --reporter dot",
-    "test-travis": "node --harmony-generators node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --reporter dot"
+    "test": "mocha",
+    "test-cov": "istanbul cover ./node_modules/.bin/_mocha -- --reporter dot",
+    "test-travis": "istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --reporter dot"
   },
   "keywords": [
     "session",
@@ -31,5 +31,5 @@
   "files": [
     "lib"
   ],
-  "main": "lib"
+  "main": "lib/mongodb"
 }

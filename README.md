@@ -11,7 +11,7 @@
 
 Atomic sessions for Koa.
 
-- Currently uses MongoDB, but will support Redis soon.
+- Currently uses MongoDB.
 - Atomic updates - don't butcher the entire session.
 - Don't grab the session from the database unless necessary.
 - Better error handling.

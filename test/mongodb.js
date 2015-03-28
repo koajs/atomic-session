@@ -3,7 +3,7 @@ var request = require('supertest')
 var assert = require('assert')
 var koa = require('koa')
 
-var session = require('..').mongodb
+var session = require('..')
 
 var collection
 
