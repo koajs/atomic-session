@@ -6,17 +6,17 @@
   "license": "MIT",
   "repository": "koajs/atomic-session",
   "dependencies": {
-    "csrf": "^2.0.2",
+    "csrf": "^3.0.0",
     "mongodb": "^2.0.25",
-    "mongodb-next": "^0.7.0",
+    "mongodb-next": "^0.8.0",
     "ms": "^0.7.0"
   },
   "devDependencies": {
     "istanbul": "0",
-    "koa": "0",
+    "koa": "1.1.2",
     "mocha": "2",
     "standardberry": "*",
-    "supertest": "0"
+    "supertest": "1.1.0"
   },
   "scripts": {
     "lint": "standardberry lib/*.js",
