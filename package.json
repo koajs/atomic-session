@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": "koajs/atomic-session",
   "dependencies": {
-    "csrf": "^2.0.2",
+    "csrf": "^3.0.6",
     "mongodb": "^2.0.25",
     "mongodb-next": "^0.7.0",
     "ms": "^2.0.0"
